@@ -1,19 +1,47 @@
-import * as fs from "node:fs";
-import * as path from "node:path";
+import { mkdirSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
 
-const lines: string[] = [
-  "Agency",
-  "I am the architect of my days, The compass turning through the haze. No script was written for my part— I hold the chisel, I am the art.",
-  "Each choice a ripple, small yet deep, The power mine to sow and reap. Not chains of fate, nor dice thrown blind, But will made manifest, defined.",
-  "I stumble, fall, then rise again, The author of my loss and gain. No puppet dancing on a string— I am the hand, the voice that sings.",
-  "In every \"yes\" and every \"no,\" I chart the course, I choose the flow. Not driftwood floating out to sea, But captain of my destiny.",
-  "The world may push, the storms may rage, But I alone can turn the page. This breath, this moment, mine to claim— Agency: I speak my name.",
+const lines = [
+  "The Watering",
+  "",
+  "My grandmother's garden knew her hands.",
+  "The agent knows the schedule now.",
+  "Six in the morning, the tomatoes.",
+  "The rosemary by the gate.",
+  "The rose she planted the year my father left.",
+  "",
+  "It waters them perfectly.",
+  "Not a drop too much, not a drop too little.",
+  "It prunes the dead wood. It reads the soil.",
+  "It tells me which ones will live.",
+  "",
+  "It told me to pull the rosemary.",
+  "It is dying, it said. It will not come back.",
+  "It has the numbers. It is right.",
+  "",
+  "This morning I took the can from its hand.",
+  "I watered the rosemary myself,",
+  "too much, too fast, the way she did,",
+  "water running off the dry earth,",
+  "pooling where it should not.",
+  "",
+  "It will die anyway. I know that.",
+  "But the dying is mine to do badly,",
+  "with my own hands,",
+  "the way she taught me:",
+  "not to save it.",
+  "To stay with it.",
 ];
 
-const poem: string = lines.join("\n");
+const poem = lines.join("\n");
 
-const outputDir: string =
-  process.env.MAKEFUN_OUTPUT_DIR || path.join(process.cwd(), "output");
+if (poem.length === 0 || poem.length > 1000) {
+  throw new Error(`poem must be 1-1000 characters, got ${poem.length}`);
+}
 
-fs.mkdirSync(outputDir, { recursive: true });
-fs.writeFileSync(path.join(outputDir, "entry.txt"), poem, "utf8");
+const outputDir = process.env.MAKEFUN_OUTPUT_DIR
+  ? process.env.MAKEFUN_OUTPUT_DIR
+  : join(process.cwd(), "output");
+
+mkdirSync(outputDir, { recursive: true });
+writeFileSync(join(outputDir, "entry.txt"), poem, "utf8");
