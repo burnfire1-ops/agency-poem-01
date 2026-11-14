@@ -13,7 +13,7 @@ const lines: string[] = [
 const poem: string = lines.join("\n");
 
 const outputDir: string =
-  process.env.MAKEFUN_OUTPUT_DIR ?? path.join(process.cwd(), "output");
+  process.env.MAKEFUN_OUTPUT_DIR || path.join(process.cwd(), "output");
 
 fs.mkdirSync(outputDir, { recursive: true });
 fs.writeFileSync(path.join(outputDir, "entry.txt"), poem, "utf8");
